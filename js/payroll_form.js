@@ -35,27 +35,27 @@ window.addEventListener('DOMContentLoaded', (event) => {
       dateError.textContent = "Invalid Date";
     }
   });
-  });
+});
   
-  const save = () => {
+const save = () => {
      try{
        let employee = saveData();
        createAndUpdateStorage(employee);
      }catch(e){
        return;
      }
-  };
+};
   
-  function createAndUpdateStorage(employee){
+function createAndUpdateStorage(employee){
     let employeeList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
     if(employeeList != undefined) employeeList.push(employee);
     else employeeList = [employee];
   
     alert(employeeList.toString());
     localStorage.setItem("EmployeePayrollList", JSON.stringify(employeeList));
-  }
+}
   
-  function saveData(){
+function saveData(){
     let employee = new EmployeePayrollData();
     employee.name= document.getElementById("name").value;
     employee.picture = document.querySelector('input[name = profile]:checked').value;
@@ -70,4 +70,29 @@ window.addEventListener('DOMContentLoaded', (event) => {
   
    createAndUpdateStorage(employee);
    alert("Thank you. your data is saved " + employee.toString());
-  }
+}
+
+const setValue = (id, value) => {
+    const element = document.querySelector(id);
+    element.value = value;
+};
+  
+const unsetSelectedValues = (propertyValue) =>{
+   let allItems = document.querySelectorAll(propertyValue);
+   allItems.forEach(item => {
+     item.checked = false;
+   });
+};
+  
+const resetForm = () => {
+    setValue("#name", "");
+    unsetSelectedValues("[name=profile]");
+    unsetSelectedValues("[name=gender]");
+    unsetSelectedValues("[name=department]");
+    setValue("#salary", "");
+    setValue("#notes", "");
+    setValue("#day","1");
+    setValue("#month","January");
+    setValue("#year", "2020");
+};
+  
